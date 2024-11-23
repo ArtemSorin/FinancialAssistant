@@ -25,17 +25,27 @@ class ShoppingList extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Colors.grey[700]),
             ),
             const SizedBox(height: 16),
-            ElevatedButton.icon(
+            ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
+                backgroundColor: Colors.grey[200],
+                foregroundColor: Colors.blue,
                 textStyle: const TextStyle(fontSize: 14),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                elevation: 0, // Убираем тень
               ),
-              icon: const Icon(Icons.qr_code_scanner, size: 20),
-              label: const Text('Добавить чек'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.qr_code_scanner, size: 20),
+                  SizedBox(width: 8),
+                  Text('Добавить чек'),
+                ],
+              ),
             ),
           ],
         ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tinkoff/domain/usecases/get_transactions.dart';
 import 'package:tinkoff/data/repositories/transaction_repository.dart';
+import 'package:tinkoff/presentation/screens/detail_financial.dart';
 import 'package:tinkoff/presentation/screens/detail_operation.dart';
+import 'package:tinkoff/presentation/screens/profile.dart';
 import 'package:tinkoff/presentation/widgets/transaction_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           'Финассистент',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xF6F6F6F6),
         elevation: 0,
       ),
       backgroundColor: Colors.white,
@@ -106,7 +108,14 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
@@ -120,22 +129,22 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Row(
                 children: [
                   Expanded(
                     child: _buildFinancialContainer(
                       'Траты',
                       0.7,
-                      '45,678 ₽',
+                      '45 678 ₽',
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: _buildFinancialContainer(
                       'Сбережения',
                       0.3,
-                      '72,456 ₽',
+                      '72 456 ₽',
                     ),
                   ),
                 ],
@@ -152,7 +161,12 @@ class HomeScreen extends StatelessWidget {
                       buttonText: 'Открыть счет',
                       context: context,
                       onPressed: () {
-                        // Действие кнопки
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailFinancialScreen(),
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -169,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     backgroundColor: Colors.grey.shade200,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: const Text(
@@ -179,10 +193,31 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              // История операций
-              const Text(
-                'История операций',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'История операций',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Действие кнопки "Операция +"
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Colors.grey.shade300,
+                    ),
+                    child: const Text(
+                      'Операция +',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               ..._buildTransactionHistory(transactions, context),

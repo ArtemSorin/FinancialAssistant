@@ -1,16 +1,9 @@
-# tinkoff
+# Финансовый Помощник
 
-A new Flutter project.
+Разработка финансового помощника,который сможет на основе личных доходов и трат за выбранный период предлагать планирование бюджета и давать полезные рекомендации.
 
-## Getting Started
+## Обоснование выбранных технологий
 
-This project is a starting point for a Flutter application.
+Фреймворк Flutter был выбран исходя из целесообразности реализовать приложение, поддерживаемое несколькими платформами.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Предоставляемая данным фреймворком технология виджетов позволяет ускорить процесс разработки, а также обеспечить гибкость в создании пользовательского интерфейса с возможностью детальной кастомизации.
