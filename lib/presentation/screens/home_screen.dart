@@ -33,17 +33,6 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Кнопки временных периодов
-              Row(
-                children: [
-                  _buildTimePeriodButton('Неделя'),
-                  const SizedBox(width: 8),
-                  _buildTimePeriodButton('Месяц', isSelected: true),
-                  const SizedBox(width: 8),
-                  _buildTimePeriodButton('Год'),
-                ],
-              ),
-              const SizedBox(height: 90),
               // Круговая диаграмма
               Center(
                 child: SizedBox(
@@ -53,41 +42,48 @@ class HomeScreen extends StatelessWidget {
                       sections: [
                         PieChartSectionData(
                           color: const Color(0xFFEC407A),
-                          value: 42,
-                          radius: 70,
+                          value: 50,
+                          radius: 40,
                         ),
                         PieChartSectionData(
                           color: const Color(0xFF9FA8DA),
-                          value: 18,
-                          radius: 70,
-                        ),
-                        PieChartSectionData(
-                          color: const Color(0xFF66BB6A),
-                          value: 12,
-                          radius: 70,
+                          value: 30,
+                          radius: 40,
                         ),
                         PieChartSectionData(
                           color: const Color(0xFFFFC107),
-                          value: 9,
-                          radius: 70,
+                          value: 20,
+                          radius: 40,
                         ),
                       ],
-                      centerSpaceRadius: 90,
+                      centerSpaceRadius: 50,
                       sectionsSpace: 3,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
+              // Кнопки временных периодов
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildTimePeriodButton('Нед'),
+                  const SizedBox(width: 8),
+                  _buildTimePeriodButton('Мес', isSelected: true),
+                  const SizedBox(width: 8),
+                  _buildTimePeriodButton('Год'),
+                ],
+              ),
+              const SizedBox(height: 40),
               // Секция "Бюджет"
               const Text(
                 'Бюджет',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(10),
@@ -98,13 +94,13 @@ class HomeScreen extends StatelessWidget {
                     const Text(
                       '0 ₽',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Icon(Icons.calculate, color: Colors.grey.shade600),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -129,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
@@ -139,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                       '45 678 ₽',
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: _buildFinancialContainer(
                       'Сбережения',
@@ -149,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
@@ -172,7 +168,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
@@ -192,7 +188,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -235,13 +231,16 @@ class HomeScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         backgroundColor: isSelected ? Colors.blue : Colors.grey.shade200,
       ),
       onPressed: () {},
       child: Text(
         label,
-        style: TextStyle(color: isSelected ? Colors.white : Colors.black),
+        style: TextStyle(
+          color: isSelected ? Colors.white : Colors.black,
+          fontSize: 12, // Измененный размер шрифта
+        ),
       ),
     );
   }
@@ -266,9 +265,9 @@ class HomeScreen extends StatelessWidget {
           ),
           Text(
             label,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 20),
           Container(
             height: 8,
             width: double.infinity,

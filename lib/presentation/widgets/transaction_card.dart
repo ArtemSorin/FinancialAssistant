@@ -19,8 +19,8 @@ class TransactionItem extends StatelessWidget {
         transaction.amount,
         style: TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: transaction.isIncome ? Colors.green : Colors.red,
+          fontWeight: FontWeight.normal,
+          color: Colors.grey,
         ),
       ),
     );
