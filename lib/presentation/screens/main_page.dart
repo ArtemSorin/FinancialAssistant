@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:tinkoff/presentation/screens/profile.dart'; // Убедитесь, что путь к файлу правильный
 
-class DetailFinancialScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        actions: [
+          _buildUserInfo(context),
+        ],
+      ),
       backgroundColor: Color(0xF5F5F5F5),
-      appBar: AppBar(title: const Text("Финансовый ассистент")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
+            const SizedBox(height: 10),
             const Text(
               "Финассистент",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -33,7 +42,7 @@ class DetailFinancialScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailFinancialScreen(),
+                    builder: (context) => MainScreen(),
                   ),
                 );
               },
@@ -42,6 +51,47 @@ class DetailFinancialScreen extends StatelessWidget {
             _buildActionsSection(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildUserInfo(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
+            child: const CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage(
+                  'assets/avatar.png'), // Замените на путь к вашей аватарке
+            ),
+          ),
+          const SizedBox(width: 10),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              'Алина',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(width: 20),
+        ],
       ),
     );
   }

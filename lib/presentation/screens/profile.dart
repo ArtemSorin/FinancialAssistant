@@ -5,6 +5,20 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Возврат на предыдущую страницу
+          },
+        ),
+        title: Text(
+          'Профиль',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Color(0xF6F6F6F6),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -13,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
             // Иконка профиля
             CircleAvatar(
               radius: 60,
-              backgroundColor: Color.fromARGB(255, 243, 211, 51), // Желтый круг
+              backgroundColor: Color(0xFFFFC107), // Желтый круг
               child: Icon(
                 Icons.person,
                 size: 60,
@@ -23,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 20),
             // Имя и фамилия
             Text(
-              'Алина Иванова', // Замените на актуальные данные
+              'Алина', // Замените на актуальные данные
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -128,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20,
-          backgroundColor: Color.fromARGB(255, 243, 211, 51), // Желтый круг
+          backgroundColor: Colors.blue, // Желтый круг
           child: Icon(
             icon,
             color: Colors.white,

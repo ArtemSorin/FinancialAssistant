@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tinkoff/domain/usecases/get_transactions.dart';
 import 'package:tinkoff/data/repositories/transaction_repository.dart';
-import 'package:tinkoff/presentation/screens/detail_financial.dart';
 import 'package:tinkoff/presentation/screens/detail_operation.dart';
+import 'package:tinkoff/presentation/screens/main_page.dart';
 import 'package:tinkoff/presentation/screens/profile.dart';
 import 'package:tinkoff/presentation/widgets/transaction_card.dart';
 
@@ -19,6 +19,18 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    MainScreen(), // Замените на вашу страницу MainPage
+              ),
+            );
+          },
+        ),
         title: const Text(
           'Финассистент',
           style: TextStyle(color: Colors.black),
@@ -104,14 +116,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfileScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
@@ -160,7 +165,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailFinancialScreen(),
+                            builder: (context) => MainScreen(),
                           ),
                         );
                       },
@@ -389,6 +394,20 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Главная страница'),
+      ),
+      body: Center(
+        child: Text('Это главная страница'),
       ),
     );
   }
