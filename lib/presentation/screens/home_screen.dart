@@ -4,18 +4,32 @@ import 'package:tinkoff/domain/usecases/get_transactions.dart';
 import 'package:tinkoff/data/repositories/transaction_repository.dart';
 import 'package:tinkoff/presentation/screens/detail_operation.dart';
 import 'package:tinkoff/presentation/screens/main_page.dart';
-import 'package:tinkoff/presentation/screens/profile.dart';
 import 'package:tinkoff/presentation/widgets/transaction_card.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../data/themes/colors.dart';
+
+class HomeScreen extends StatefulWidget {
   final GetTransactions getTransactions;
 
   HomeScreen({super.key})
       : getTransactions = GetTransactions(TransactionRepository());
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedPeriod = 'Мес';
+
+  void _onPeriodSelected(String period) {
+    setState(() {
+      selectedPeriod = period;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final transactions = getTransactions.execute();
+    final transactions = widget.getTransactions.execute();
 
     return Scaffold(
       appBar: AppBar(
@@ -25,8 +39,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    MainScreen(), // Замените на вашу страницу MainPage
+                builder: (context) => MainScreen(),
               ),
             );
           },
@@ -35,10 +48,10 @@ class HomeScreen extends StatelessWidget {
           'Финассистент',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color(0xF6F6F6F6),
+        backgroundColor: background,
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: background,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -81,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   _buildTimePeriodButton('Нед'),
                   const SizedBox(width: 8),
-                  _buildTimePeriodButton('Мес', isSelected: true),
+                  _buildTimePeriodButton('Мес'),
                   const SizedBox(width: 8),
                   _buildTimePeriodButton('Год'),
                 ],
@@ -97,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: grey),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -126,7 +139,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'Выбрать дату',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -187,9 +203,9 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Показать все идеи',
-                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                    style: TextStyle(color: blue, fontSize: 16),
                   ),
                 ),
               ),
@@ -201,23 +217,20 @@ class HomeScreen extends StatelessWidget {
                     'История операций',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Действие кнопки "Операция +"
-                    },
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Операция +',
+                      style: TextStyle(color: Colors.black),
+                    ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 10),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: Colors.grey.shade300,
                     ),
-                    child: const Text(
-                      'Операция +',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(height: 10),
@@ -229,22 +242,23 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTimePeriodButton(String label, {bool isSelected = false}) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
+  Widget _buildTimePeriodButton(String period) {
+    final isSelected = period == selectedPeriod;
+
+    return GestureDetector(
+      onTap: () => _onPeriodSelected(period),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.blue : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        backgroundColor: isSelected ? Colors.blue : Colors.grey.shade200,
-      ),
-      onPressed: () {},
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
-          fontSize: 12, // Измененный размер шрифта
+        child: Text(
+          period,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -284,7 +298,7 @@ class HomeScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               widthFactor: percentage,
               child: Container(
-                color: Colors.yellow,
+                color: yellow,
               ),
             ),
           ),
@@ -394,20 +408,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Главная страница'),
-      ),
-      body: Center(
-        child: Text('Это главная страница'),
       ),
     );
   }

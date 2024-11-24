@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tinkoff/presentation/screens/profile.dart'; // Убедитесь, что путь к файлу правильный
+import 'package:tinkoff/data/themes/colors.dart';
+import 'package:tinkoff/presentation/screens/home_screen.dart';
+import 'package:tinkoff/presentation/screens/profile.dart';
 
 class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +17,7 @@ class MainScreen extends StatelessWidget {
           _buildUserInfo(context),
         ],
       ),
-      backgroundColor: Color(0xF5F5F5F5),
+      backgroundColor: background,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
@@ -28,9 +32,21 @@ class MainScreen extends StatelessWidget {
               "Один из самых важных факторов достижения финансового благополучия — планирование бюджета.",
             ),
             const SizedBox(height: 16),
-            _buildBudgetInfo(),
+            _buildBudgetInfo(context),
             const SizedBox(height: 16),
-            _buildWalletInfo(),
+            Row(
+              children: [
+                Flexible(
+                  flex: 6,
+                  child: _buildWalletInfo(),
+                ),
+                const SizedBox(width: 16),
+                Flexible(
+                  flex: 4,
+                  child: _buildPriceInfo(),
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             _buildIdeaContainer(
               title: 'Кредит',
@@ -42,7 +58,7 @@ class MainScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainScreen(),
+                    builder: (context) => const MainScreen(),
                   ),
                 );
               },
@@ -71,8 +87,7 @@ class MainScreen extends StatelessWidget {
             },
             child: const CircleAvatar(
               radius: 20,
-              backgroundImage: AssetImage(
-                  'assets/avatar.png'), // Замените на путь к вашей аватарке
+              backgroundImage: AssetImage('assets/avatar.png'),
             ),
           ),
           const SizedBox(width: 10),
@@ -96,25 +111,96 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBudgetInfo() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2))
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Оценка", style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text("14 834.92", style: TextStyle(fontSize: 24)),
-          const SizedBox(height: 8),
-          LinearProgressIndicator(value: 0.8, color: Colors.green),
-        ],
+  Widget _buildBudgetInfo(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Оценка",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "14 567 ₽",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            Text(
+              "ваш план бюджета",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black.withOpacity(0.5),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 8,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: FractionallySizedBox(
+                alignment: Alignment.centerLeft,
+                widthFactor: 0.7,
+                child: Container(
+                  color: Colors.yellow,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: SizedBox(
+                width: 120,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Дополнительное действие для кнопки (если требуется)
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    backgroundColor: Colors.grey.shade300,
+                  ),
+                  child: const Text(
+                    'Отлично',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -123,20 +209,56 @@ class MainScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        color: Colors.black87,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2))
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Кошелёк", style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          const Text("60 000 ₽", style: TextStyle(fontSize: 24)),
-          const SizedBox(height: 8),
-          const Text("0 ₽ сбережений"),
+          const Text("Кошелёк",
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white)),
+          Text(
+            "сбережения",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white.withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(
+            height: 70,
+            width: 400,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPriceInfo() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2))
+        ],
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("14 567 ₽",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+          SizedBox(
+            height: 90,
+            width: 400,
+          ),
         ],
       ),
     );
@@ -238,7 +360,6 @@ class MainScreen extends StatelessWidget {
   Widget _buildActionItem(String title, String subtitle, IconData icon,
       {bool showColorBlocks = false, Color? cardColor, Color? textColor}) {
     return Flexible(
-      // <-- Added Flexible widget
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(

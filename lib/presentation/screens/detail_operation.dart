@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tinkoff/data/models/category_model.dart';
 import 'package:tinkoff/data/models/transaction_model.dart';
-import '../widgets/transaction_info.dart';
 import '../widgets/category_info.dart';
 import '../widgets/shopping_list.dart';
 import '../../domain/usecases/get_category.dart';
 import '../../domain/usecases/get_transaction.dart';
 import '../../data/repositories/category_repository.dart';
 import '../../data/repositories/transaction_repository.dart';
+import '../../data/themes/colors.dart';
 
 import 'package:intl/intl.dart';
 
@@ -41,7 +41,7 @@ class DetailOperationScreenState extends State<DetailOperationScreen> {
     DateTime myDate = DateTime.now();
 
     return Scaffold(
-      backgroundColor: Color(0xF6F6F6F6),
+      backgroundColor: background,
       appBar: AppBar(
         title: const Text('Покупка'),
       ),
@@ -50,7 +50,6 @@ class DetailOperationScreenState extends State<DetailOperationScreen> {
         children: [
           _buildCircle(myDate),
           const SizedBox(height: 30),
-          //TransactionInfo(transaction: transaction),
           const SizedBox(height: 16),
           CategoryInfo(category: category),
           const SizedBox(height: 16),
@@ -61,24 +60,32 @@ class DetailOperationScreenState extends State<DetailOperationScreen> {
   }
 
   Widget _buildCircle(DateTime transactionDate) {
-    // Добавили параметр transactionDate
-    final formattedDate = DateFormat('dd MMMM, HH:mm')
-        .format(transactionDate); // Форматируем дату
+    final formattedDate = DateFormat('dd MMMM, HH:mm').format(transactionDate);
 
     return Column(
       children: [
         Text(
-          formattedDate, // Выводим отформатированную дату
+          formattedDate,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 50),
-        Container(
-          width: 100,
-          height: 100,
-          decoration: const BoxDecoration(
-            color: Colors.yellow,
-            shape: BoxShape.circle,
-          ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: yellow,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const Icon(
+              Icons.shopping_cart,
+              size: 48,
+              color: Colors.white,
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         const Text(
@@ -86,9 +93,9 @@ class DetailOperationScreenState extends State<DetailOperationScreen> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 4),
-        const Text(
+        Text(
           'Детальная информация',
-          style: TextStyle(fontSize: 14, color: Colors.grey),
+          style: TextStyle(fontSize: 14, color: grey),
         ),
         const SizedBox(height: 8),
         const Text(

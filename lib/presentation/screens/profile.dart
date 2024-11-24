@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tinkoff/data/themes/colors.dart';
+import 'package:tinkoff/presentation/screens/login.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: background,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -16,33 +20,36 @@ class ProfileScreen extends StatelessWidget {
           'Профиль',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color(0xF6F6F6F6),
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 40),
             // Иконка профиля
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Color(0xFFFFC107), // Желтый круг
-              child: Icon(
-                Icons.person,
-                size: 60,
-                color: Colors.white,
+            Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: yellow, // Желтый круг
+                child: Icon(
+                  Icons.person,
+                  size: 60,
+                  color: Colors.white,
+                ),
               ),
             ),
             SizedBox(height: 20),
             // Имя и фамилия
-            Text(
-              'Алина', // Замените на актуальные данные
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const Center(
+              child: Text(
+                'Алина', // Замените на актуальные данные
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
             // Контейнер с данными
@@ -54,32 +61,8 @@ class ProfileScreen extends StatelessWidget {
             // Второй контейнер
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _buildSecondContainer(),
+              child: _buildSecondContainer(context),
             ),
-            Spacer(),
-            // Кнопка выйти из приложения
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Действие на кнопку выхода
-                  print("Выход из приложения");
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    'Выйти из приложения',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
           ],
         ),
       ),
@@ -112,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSecondContainer() {
+  Widget _buildSecondContainer(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: BoxDecoration(
@@ -126,12 +109,37 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: Center(
-        child: Text(
-          'Этот контейнер можно заполнить дополнительными данными',
-          style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-          textAlign: TextAlign.center,
-        ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity, // Кнопка на всю ширину контейнера
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: yellow,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                textStyle: TextStyle(fontSize: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: Text(
+                "Выход из аккаунта",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -142,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20,
-          backgroundColor: Colors.blue, // Желтый круг
+          backgroundColor: yellow, // Желтый круг
           child: Icon(
             icon,
             color: Colors.white,
